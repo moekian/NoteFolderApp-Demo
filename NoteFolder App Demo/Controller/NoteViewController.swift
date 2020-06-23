@@ -20,7 +20,7 @@ class NoteViewController: UIViewController {
     var editMode: Bool = false
     
     // a delegate for the noteTableVC
-    var delegate: NoteTableViewController?
+    weak var delegate: NoteTableViewController?
 
     override func viewDidLoad() {
         super.viewDidLoad()
