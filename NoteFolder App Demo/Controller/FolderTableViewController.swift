@@ -25,6 +25,10 @@ class FolderTableViewController: UITableViewController {
         loadFolder()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        tableView.reloadData()
+    }
+    
     //MARK: - Data manipulation methods
     
     func loadFolder() {
@@ -68,6 +72,7 @@ class FolderTableViewController: UITableViewController {
         cell.detailTextLabel?.textColor = .lightGray
         cell.detailTextLabel?.text = "\(folders[indexPath.row].notes?.count ?? 0)"
         cell.imageView?.image = UIImage(systemName: "folder")
+        cell.selectionStyle = .none
         return cell
     }
 
@@ -114,3 +119,5 @@ class FolderTableViewController: UITableViewController {
         
     }
 }
+
+

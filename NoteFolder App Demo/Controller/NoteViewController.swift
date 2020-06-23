@@ -13,14 +13,29 @@ class NoteViewController: UIViewController {
     @IBOutlet weak var noteTextView: UITextView!
     var selectedNote: Note? {
         didSet {
-            // write code after
+            editMode = true
         }
     }
+    
+    var editMode: Bool = false
+    
+    // a delegate for the noteTableVC
+    var delegate: NoteTableViewController?
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        
+        noteTextView.text = selectedNote?.title
+    }
+    
+    //MARK: - view will disappar
+    override func viewWillDisappear(_ animated: Bool) {
+        if editMode {
+            delegate!.deleteNote(note: selectedNote!)
+        }
+        delegate!.updateNote(with: noteTextView.text)
     }
     
 

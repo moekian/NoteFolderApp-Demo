@@ -70,7 +70,7 @@
         <scene sceneID="x88-wv-I57">
             <objects>
                 <tableViewController id="X0O-MP-Uur" customClass="NoteTableViewController" customModule="NoteFolder_App_Demo" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsMultipleSelection="YES" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="GS5-ld-ctc">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelectionDuringEditing="YES" allowsMultipleSelection="YES" allowsMultipleSelectionDuringEditing="YES" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="GS5-ld-ctc">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -83,8 +83,9 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                                 <color key="backgroundColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="tintColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <connections>
-                                    <segue destination="gHC-OL-xNQ" kind="show" trigger="accessoryAction" id="Wbu-Hi-cVf"/>
+                                    <segue destination="gHC-OL-xNQ" kind="show" id="SBh-FQ-YCP"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -94,13 +95,15 @@
                         </connections>
                     </tableView>
                     <toolbarItems>
-                        <barButtonItem enabled="NO" title="Item" image="trash" catalog="system" id="EgR-kW-fhO"/>
+                        <barButtonItem enabled="NO" title="Item" image="trash" catalog="system" id="EgR-kW-fhO">
+                            <connections>
+                                <action selector="deleteNotes:" destination="X0O-MP-Uur" id="9P9-bh-Vbe"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem style="plain" systemItem="flexibleSpace" id="evU-kA-EoC"/>
                         <barButtonItem enabled="NO" title="Item" image="tray.and.arrow.down" catalog="system" id="QTB-p9-FeQ">
                             <connections>
-                                <segue destination="mgt-Eg-jL1" kind="popoverPresentation" identifier="moveNotes" popoverAnchorBarButtonItem="QTB-p9-FeQ" id="oML-S8-oIn">
-                                    <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
-                                </segue>
+                                <segue destination="mgt-Eg-jL1" kind="presentation" identifier="moveNoteSegue" id="b2K-xf-NKW"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem style="plain" systemItem="flexibleSpace" id="DrK-Ld-eET"/>
@@ -111,7 +114,11 @@
                         </barButtonItem>
                     </toolbarItems>
                     <navigationItem key="navigationItem" title="Notes" id="ysb-IH-hhq">
-                        <barButtonItem key="rightBarButtonItem" title="Item" image="ellipsis" catalog="system" id="cbm-ep-W1H"/>
+                        <barButtonItem key="rightBarButtonItem" title="Item" image="ellipsis" catalog="system" id="cbm-ep-W1H">
+                            <connections>
+                                <action selector="editModePressed:" destination="X0O-MP-Uur" id="UF9-jB-dLY"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
@@ -192,8 +199,8 @@
                                     </tableViewCell>
                                 </prototypes>
                                 <connections>
-                                    <outlet property="dataSource" destination="mgt-Eg-jL1" id="eH1-Hi-2mm"/>
-                                    <outlet property="delegate" destination="mgt-Eg-jL1" id="PWa-cU-v4l"/>
+                                    <outlet property="dataSource" destination="mgt-Eg-jL1" id="GEB-gC-NoT"/>
+                                    <outlet property="delegate" destination="mgt-Eg-jL1" id="aCg-vH-clN"/>
                                 </connections>
                             </tableView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Move to folder ..." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SzU-zt-HAE">
@@ -209,6 +216,9 @@
                                 <rect key="frame" x="346" y="35" width="48" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <state key="normal" title="Cancel"/>
+                                <connections>
+                                    <action selector="dismissVC:" destination="mgt-Eg-jL1" eventType="touchUpInside" id="hm3-3K-VBF"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -228,7 +238,7 @@
                     <toolbarItems/>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
-                        <segue destination="eHF-xK-Dd8" kind="unwind" identifier="dismissMoveView" unwindAction="unwindToNoteTableViewControllerWithSegue:" id="XVB-gg-QeR"/>
+                        <segue destination="eHF-xK-Dd8" kind="unwind" identifier="dismissMoveToVC" unwindAction="unwindToNoteTableVC:" id="Ak2-KM-hc8"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bDe-h7-eyW" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -269,9 +279,9 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="mX4-zh-XZa"/>
+        <segue reference="SBh-FQ-YCP"/>
     </inferredMetricsTieBreakers>
-    <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+    <color key="tintColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
     <resources>
         <image name="ellipsis" catalog="system" width="128" height="37"/>
         <image name="folder.badge.plus" catalog="system" width="128" height="86"/>
