@@ -112,7 +112,6 @@ class NoteTableViewController: UITableViewController {
 
     //MARK: - Action methods
     
-    
     @IBAction func deleteNotes(_ sender: UIBarButtonItem) {
         
         if let indexPaths = tableView.indexPathsForSelectedRows {
