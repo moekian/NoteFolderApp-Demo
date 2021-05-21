@@ -33,6 +33,7 @@ class NoteTVC: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        navigationItem.title = selectedFolder?.name
         showSearchBar()
 
         // Uncomment the following line to preserve selection between presentations
